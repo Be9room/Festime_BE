@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: festime_BE
+
+
+rabbit:
+  host: ${RABBIT_HOST}

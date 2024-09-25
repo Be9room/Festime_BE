@@ -1,9 +1,9 @@
 package Be9room.festime.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
@@ -12,6 +12,8 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 @RequiredArgsConstructor
 public class WebSocketConfigurer implements WebSocketMessageBrokerConfigurer {
+    @Value("${rabbit.host}")
+    private String rabbitHost;
 //    private final StompHandler stompHandler;
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -23,10 +25,15 @@ public class WebSocketConfigurer implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-//        registry.setPathMatcher(new AntPathMatcher("."));
-        registry.setApplicationDestinationPrefixes("/pub");
-//        registry.enableStompBrokerRelay("/queue", "/topic", "/exchange", "/amq/queue");
-        registry.enableSimpleBroker("/sub");
+        registry.setApplicationDestinationPrefixes("/pub")
+                .enableStompBrokerRelay("/topic")
+                .setRelayHost(rabbitHost)
+                .setVirtualHost("/")
+                .setRelayPort(61613)
+                .setClientLogin("admin")
+                .setClientPasscode("admin")
+                .setSystemLogin("admin")
+                .setSystemPasscode("admin");
     }
 
 //    @Override
