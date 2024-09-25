@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class MessageDTO {
+public class MessageDto {
     private String memberName;
     private String memberId;
     private String messageType;
