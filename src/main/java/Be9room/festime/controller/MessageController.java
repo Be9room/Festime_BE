@@ -20,13 +20,12 @@ public class MessageController {
      */
     @MessageMapping(value = "/guestbook/enter")
     public void enter(MessageDTO message){
-        log.info("eee");
         message.setMessageType(MessageType.ENTER.toString());
         message.setMessage(message.getMemberName() + "님이 방명록에 참여했어요!");
 
         /* 메세지 저장 부분 */
 
-        template.convertAndSend("/sub/guestbook", message);
+        template.convertAndSend("/topic/guestbook", message);
     }
 
     /**
@@ -35,12 +34,11 @@ public class MessageController {
      */
     @MessageMapping(value = "/guestbook/message")
     public void message(MessageDTO message){
-        log.info("messsaggee");
         message.setMessageType(MessageType.MESSAGE.toString());
 
         /* 메세지 저장 부분 */
 
-        template.convertAndSend("/sub/guestbook", message);
+        template.convertAndSend("/topic/guestbook", message);
     }
 
     /**
@@ -54,7 +52,7 @@ public class MessageController {
 
         /* 메세지 저장 부분 */
 
-        template.convertAndSend("/sub/guestbook",  message);
+        template.convertAndSend("/topic/guestbook",  message);
     }
 
 

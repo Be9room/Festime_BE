@@ -1,1 +1,7 @@
-spring.application.name=festime
+spring:
+  application:
+    name: festime_BE
+
+
+rabbit:
+  host: ${RABBIT_HOST}
