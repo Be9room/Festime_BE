@@ -1,7 +1,9 @@
 spring:
   application:
     name: festime_BE
-
+  data:
+    mongodb:
+      uri: ${MONGO_HOST}
 
 rabbit:
   host: ${RABBIT_HOST}
