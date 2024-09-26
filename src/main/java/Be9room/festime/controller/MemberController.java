@@ -26,6 +26,4 @@ public class MemberController {
         return ApiResponse.of(SuccessStatus.MEMBER_ENTER, memberDto);
     }
 
-
-
 }
