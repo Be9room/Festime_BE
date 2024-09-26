@@ -15,7 +15,8 @@ public enum ErrorStatus implements BaseErrorCode {
     _UNAUTHORIZED(HttpStatus.UNAUTHORIZED,"COMMON401","인증이 필요합니다."),
     _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다."),
 
-    // 멤버 관려 예외
+    //페이지 관련 에러
+    _PAGE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "PAGE2001", "page 번호는 0 이상이여야 합니다")
     ;
     private final HttpStatus httpStatus;
     private final String code;
