@@ -10,6 +10,7 @@ import Be9room.festime.enums.MessageType;
 import Be9room.festime.service.MessageService;
 import Be9room.festime.service.TimeLimitService;
 import Be9room.festime.validation.annotation.CheckPage;
+import com.vane.badwordfiltering.BadWordFiltering;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -29,6 +30,7 @@ public class MessageController {
     private final SimpMessagingTemplate template;
     private final MessageService messageService;
     private final TimeLimitService timeLimitService;
+    private final BadWordFiltering badWordFiltering;
 
     /**
      * 메세지 전송
@@ -40,8 +42,10 @@ public class MessageController {
 
         //중복 입력 방지 30초
         if(timeLimitService.isTimeElapsed(message.getMemberId())){
+            //비속어 필터 적용
+            String filteredMessage = badWordFiltering.change(message.getMessage(), new String [] {"_", "@", " ", "  ", "!", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+","=","/", "|", "~", "`", "?", ">", "<", ",", ".", ";", ":"});
+            message.setMessage(filteredMessage);
             messageService.save(message);
-
             template.convertAndSend("/topic/guestbook", message);
         }
     }
