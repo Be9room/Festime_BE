@@ -14,7 +14,7 @@ public class RandomNameGenerator {
     );
 
     List<String> objective = Arrays.asList(
-            "인덕이", "안뇽이"
+            "인덕이", "안뇽이", "비룡이"
     );
     public String generate(){
         Collections.shuffle(adjective);
