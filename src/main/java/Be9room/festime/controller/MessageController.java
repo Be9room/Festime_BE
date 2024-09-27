@@ -43,10 +43,7 @@ public class MessageController {
             messageService.save(message);
 
             template.convertAndSend("/topic/guestbook", message);
-        } else{
-            log.info("too fast!");
         }
-
     }
 
 
